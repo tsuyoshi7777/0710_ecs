@@ -1,0 +1,5 @@
+dockerhub-token              = "f7f8bda9-6097-4875-a0e4-e9b77a3d6516"
+github_personal_access_token = "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"
+aws_db_username              = "admin"
+aws_db_password              = "password"
+my_ip                        = "106.73.23.1/32"

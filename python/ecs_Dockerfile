@@ -1,0 +1,33 @@
+FROM python:3.8-buster as builder
+
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /code
+
+COPY /python/requirements.lock /code
+RUN pip install --upgrade pip \
+  && pip install -r /code/requirements.lock
+
+
+FROM python:3.8-slim-buster as runner
+
+COPY --from=builder /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+COPY --from=builder /usr/local/bin/uwsgi /usr/local/bin/uwsgi
+
+RUN apt update \
+  && apt-get -y install default-libmysqlclient-dev \
+  && apt install -y libxml2 \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+
+RUN useradd -r -s /bin/false uwsgiusr
+RUN mkdir -p code/src/logs/app_logs
+RUN touch code/src/logs/server.log
+RUN chown -R uwsgiusr code/src/logs
+
+USER uwsgiusr
+
+COPY /python /code
+
+CMD uwsgi --ini /code/deploy/uwsgi.ini

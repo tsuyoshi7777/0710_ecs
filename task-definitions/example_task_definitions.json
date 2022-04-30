@@ -1,0 +1,40 @@
+[
+  {
+    "name": "nginx",
+    "image": "823104559115.dkr.ecr.ap-northeast-1.amazonaws.com/nginx:latest",
+    "essential": true,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "anginx",
+        "awslogs-group": "/ecs/anginx"
+      }
+    },
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 80
+      }
+    ]
+  },
+  {
+    "name": "python",
+    "image": "823104559115.dkr.ecr.ap-northeast-1.amazonaws.com/python:latest",
+    "essential": true,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "apython",
+        "awslogs-group": "/ecs/apython"
+      }
+    },
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 8001
+      }
+    ]
+  }
+]

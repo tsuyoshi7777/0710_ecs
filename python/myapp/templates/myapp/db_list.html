@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>db_list</title>
+  </head>
+  <body>
+    <table border="1">
+        <tr>
+          <th>id</th>
+          <th>item</th>
+          <th>url</th>
+          <th>stock</th>
+        </tr>
+        {% for data in datas %}
+        <tr>
+          <td>{{ data.0 }}</td>
+          <td>{{ data.1 }}</td>
+          <td>{{ data.2 }}</td>
+          <td>{{ data.3 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+  </body>
+</html>
